@@ -15,6 +15,7 @@
         <form method="POST" action="{{ route('store.post') }}"  enctype="multipart/form-data">
           {{--  --}}
             @csrf
+            @method('PUT')
             <!-- Title -->
             <div class="form-group">
                 <label for="title">Title:</label>

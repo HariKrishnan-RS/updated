@@ -38,7 +38,7 @@
              @endforeach
             <!-- Submit and Save as Draft Buttons -->
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" name="save" class="btn btn-primary">Submit</button>
                 <button type="submit" class="btn btn-secondary" name="asDraft">back</button>
             </div>
         </form>

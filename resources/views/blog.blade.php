@@ -12,7 +12,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light top-nav">
-  <a class="navbar-brand" href="#">BlogPage</a>
+  <a class="navbar-brand" href="#">blog</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -85,7 +85,7 @@
 </div>
 <div class="d-flex align-items-center justify-content-center flex-column">
     <input class="mb-2" id="searchForm" type="text" name="searchbox" placeholder="Search posts...">
-<button class="btn btn-danger"  id="searchButton" type="submit" name="tagsearch">Search</button>
+<button class="btn btn-danger"  id="searchButton" type="submit" name="tag_search">Search</button>
 </div>
 </form>
 
@@ -114,7 +114,10 @@
 @auth
 <div class="d-flex align-items-center justify-content-center flex-column">
 @if(auth()->user()->role === 'user')
-<a  href="{{route('add.page')}}" class="btn btn-success text-decoration-none">Add Post</a>
+<form method="GET" action="{{ route('add.page') }}" >
+    <input type="hidden" name="create" value="1">
+    <button type="submit"  class="btn btn-success text-decoration-none" >Add Post</button>
+</form>
 <a href="{{route('draft.page',['id'=> auth()->user()->id ])}}" class="btn-alert">Draft</a>
 @endif
 </div>

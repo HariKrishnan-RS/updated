@@ -243,14 +243,15 @@ background-color: forestgreen;
         @if(auth()->user()->role === 'admin' && !$post->approved)
         <form method="POST" action="{{ route('read.page',['id'=>$post->id]) }}">
             @csrf
-            <button class="btn btn-success mt-1"  type="submit">Approve</button>
+            <button class="btn btn-success mt-1" name="approve" type="submit">Approve</button>
         </form>
         @endif
         @if(auth()->user()->role === 'admin' && $post->approved)
         <form method="POST" action="{{ route('read.page',['id'=>$post->id]) }}">
             @csrf
+            @method('DELETE')
             <button class="btn btn-danger mt-1"  type="submit" name="delete">Delete</button>
-            </form>
+        </form>
         @endif
 
         @if(auth()->user()->role === 'editor')

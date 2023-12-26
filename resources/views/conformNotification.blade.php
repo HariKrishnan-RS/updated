@@ -6,7 +6,7 @@
 <body>
     <h1>Hi there</h1>
     <p>Your post is Approved
-     You can view it here: http://127.0.0.1:8000/blogPage</p>
+     You can view it here: http://127.0.0.1:8000/blog</p>
     <p>
       Thankyou.
     </p>

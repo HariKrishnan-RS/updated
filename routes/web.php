@@ -1,23 +1,16 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DraftController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use \App\Http\Middleware\RedirectIfNotAuthenticated;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\postController;
+use \App\Http\Controllers\IndexController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,27 +22,30 @@ Route::get('/test.page', function () {
 
 
 
-Route::get('blogPage',[PageController::class,'MainPage'])->name('blog.page');
+Route::get('blogs',[IndexController::class,'index'])->name('blog.page');
+Route::post('blogs', [LogoutController::class,'update'])->name('logout.user');
+
+Route::get('blogs/post',[postController::class,'show'])->name('add.page');
+Route::put('blogs/post',[postController::class,'create'])->name('store.post');
+
+Route::get('blog/{id}/read', [postController::class, 'show'])->name('read.page')->middleware(RedirectIfNotAuthenticated::class);
+Route::post('blog/{id}/read', [postController::class, 'update'])->name('read.page');
+Route::delete('blog/{id}/read', [postController::class, 'delete'])->name('read.page');
 
 
-// Route::get('blogPage/read/{id}',[PageController::class,'ReadPage'])->name('read.page');
-Route::get('blogPage/read/{id}', [PageController::class, 'readPage'])
-->name('read.page')
-->middleware(RedirectIfNotAuthenticated::class);
-Route::post('blogPage/read/{id}', [PageController::class, 'approve'])
-->name('read.page');
-Route::get('/login', [LoginController::class,'showLoginForm'])->name('login.page');
-Route::post('/login', [LoginController::class,'login']);
-Route::get('/register', [RegisterController::class,'showRegistrationForm'])->name('register.page');
-Route::post('/register', [RegisterController::class,'register'])->name('register.submit');
-Route::post('/blogPage', [LoginController::class,'logout'])->name('logout.user');
-// Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
-Route::get('addPost',[PageController::class,'addPost'])->name('add.page');
-Route::post('/storePost',[postController::class,'storePost'])->name('store.post');
+
+Route::get('login', [LoginController::class,'show'])->name('login.page');
+Route::post('login', [LoginController::class,'update']);
+
+Route::get('register', [RegisterController::class,'show'])->name('register.page');
+Route::post('register', [RegisterController::class,'store'])->name('register.submit');
+
+Route::get('blogs/draft/{id}',[DraftController::class,'show'])->name('draft.page');
+Route::post('blogs/draft/{id}',[DraftController::class,'update'])->name('draft.post');
+
 Route::post('/editPost/{id}',[postController::class,'editPost'])->name('edit.post');
-Route::get('draftPage/{id}',[PageController::class,'draftPage'])->name('draft.page');
-Route::post('/draftPost/{id}',[postController::class,'draftPost'])->name('draft.post');
+
 Route::get('pending}',[PageController::class,'pendingPage'])->name('pending.page');
 Route::get('editPage/{id}',[PageController::class,'editPage'])->name('edit.page');
 Route::get('/api/posts', [postController::class,'index']);
-// Route::get('/commentPage',[PageController::class,'commentPage'])->name('comment.page');
+

@@ -25,7 +25,7 @@ fetch("http://localhost:8000/api/posts")
 
             const readButton = document.createElement("a");
             readButton.classList.add("btn", "btn-primary");
-            readButton.href = "blogPage/read/" + post.id;
+            readButton.href = "blog/read/" + post.id;
             readButton.textContent = "Read";
 
             // Append elements to the card

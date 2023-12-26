@@ -25,4 +25,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'joins', 'user_id', 'post_id')->withTimestamps();
+    }
 }

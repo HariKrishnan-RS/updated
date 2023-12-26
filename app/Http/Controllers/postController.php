@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\conformNotification;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Join;
+use App\Models\Tag;
 use App\Models\Tagjoin;
 use App\Models\Draft;
 use App\Models\User;
@@ -19,84 +22,106 @@ class postController extends Controller
         $posts = Post::all(); // Retrieve all posts
         return response()->json($posts);
     }
+    public function show(Request $request, $id = null )
+    {
 
-public function draftPost(Request $request,$id) {
-  if(!$request->has("asDraft")) {
-  $post = Post::find($id);
-  $post->draft = false;
-  $post->save();
-  foreach($request->tags as $idd){
-          $tagjoin = new Tagjoin;
-          $tagjoin->post_id = $post->id;
-          $tagjoin->tag_id = $idd;
-          $tagjoin->save();
-  }
-  $draft = Draft::where('post_id',$id);
-  $draft->delete();
-  return redirect()->route('blog.page');
-  }
-  else{
-  return redirect()->route('blog.page');
-  }
-}
-
-public function storePost(Request $request){
-
-      $request->validate([
-          'title' => 'required|string|max:255',
-          'small_description' => 'required|string|max:500',
-          'full_description' => 'required|string',
-          'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-
-      ]);
-
-
-
-        if ($request->hasFile('image')) {
-
-        $imageName = 'post-img1.' . $request->image->extension();
-        $request->image->storeAs('images', $imageName, 'public');
-        $post = new Post();
-        $post->title = $request->title;
-        $post->small_description = $request->small_description;
-        $post->full_description = $request->full_description;
-        if ($request->has('asDraft')) {
-        $post->draft = true;
-        } else {
-
-
-        $post->draft = false;
-        $userEmail = "harikrishnan.radhakrishnan@qburst.com";
-        Mail::to($userEmail)->send(new NewPostNotification());
+        if( $request->has('create') )
+        {
+            $tags = Tag::all();
+            return view("create",['tags'=>$tags]);
+        }
+        else //read post
+        {
+            $post = Post::find($id);
+            $join = Join::where('post_id', $id)->first();
+            $user = User::find($join->user_id);
+            $comments = Comment::all()->where('post_id', $post->id);
+            return view("read",['id'=>$id,'post' => $post,'user_name'=>$user->name,'comments'=>$comments]);
         }
 
-        $post->save();
-        if (!$request->has('asDraft')) {
-        foreach($request->tags as $id){
-          $tagjoin = new Tagjoin;
-          $tagjoin->post_id = $post->id;
-          $tagjoin->tag_id = $id;
-          $tagjoin->save();
+    }
+
+    public function update( request $request, $id )
+    {
+        if( $request->has('comment') )
+        {
+            $newComment = new Comment();
+            $newComment->comment = $request->input('comment');
+            $newComment->user_id = auth()->user()->id;
+            $newComment->post_id = $id;
+            $newComment->save();
+            return redirect()->back()->with('addedComment','comment added successfully');
         }
-      }
-        $userId = Auth::id();
-        $join = new Join();
-        $join->user_id = $userId;
-        $join->post_id = $post->id; // Use the newly created post's ID
-        $join->save();
-        if ($request->has('asDraft')) {
-        $draft = new Draft();
-        $postId = DB::table('posts') ->where('title', $request->title)->first()->id;
-        $draft->post_id = $postId;
-        $draft->user_id = Auth::user()->id;
-        $draft->save();
-      // dd('sss');
-      }
-        return redirect()->route('blog.page')->with('posted', 'Post created successfully');
+
+        if( $request->has('approve') )
+        {
+            $post = Post::find($id);
+            $post->approved = true;
+            $post->save();
+            $userEmail = "harikrishnan.radhakrishnan@qburst.com";
+            Mail::to($userEmail)->send(new conformNotification());
+            return redirect()->route('pending.page')->with('approve', 'success fully approved');
+        }
+        return redirect()->back();
+    }
+    public function delete(  $id )
+    {
+        $post = Post::find($id);
+        $post->delete();
+        return redirect()->route('blog.page')->with('delete','successfully deleted');
+    }
 
 
-      }
-}
+
+    public function create( Request $request )
+    {
+
+          $request->validate([
+              'title' => 'required|string|max:255',
+              'small_description' => 'required|string|max:500',
+              'full_description' => 'required|string',
+              'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+          ]);
+
+          if ( $request->hasFile('image') )
+          {
+                $imageName = 'post-img1.' . $request->image->extension();
+                $request->image->storeAs('images', $imageName, 'public');
+
+                $post = new Post();
+                $post->title = $request->title;
+                $post->small_description = $request->small_description;
+                $post->full_description = $request->full_description;
+                $post->draft = $request->has('asDraft');
+                $post->save();
+
+                if( !$request->has('asDraft'))
+                {
+                    foreach($request->tags as $id)
+                    {
+                        $tagjoin = new Tagjoin;
+                        $tagjoin->post_id = $post->id;
+                        $tagjoin->tag_id = $id;
+                        $tagjoin->save();
+                    }
+                    $userEmail = "harikrishnan.radhakrishnan@qburst.com";
+//                    Mail::to($userEmail)->send(new NewPostNotification());
+                }
+
+                if( $request->has('asDraft'))
+                {
+                    $draft = new Draft();
+                    $postId = DB::table('posts') ->where('title', $request->title)->first()->id;
+                    $draft->post_id = $postId;
+                    $draft->user_id = Auth::user()->id;
+                    $draft->save();
+                }
+
+                auth()->user()->posts()->attach($post); //update joins table
+                return redirect()->route('blog.page')->with('posted', 'Post created successfully');
+
+          }
+    }
 public function editPost(Request $request,$id)
 {
 
