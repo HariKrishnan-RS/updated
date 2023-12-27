@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\mail;
+use App\Jobs\NewUserWelcomeMail;
+use App\Mail\NewPostNotification;
+use App\Mail\WelcomeEmail;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -22,6 +26,9 @@ class IndexController extends Controller
         }
         else
         {
+//            dispatch(new mail());
+            \Illuminate\Support\Facades\Mail::to("harikrishnan.radhakrishnan@qburst.com")->queue(new NewPostNotification());
+//            mail::dispatch()->onQueue('database');
             $posts = Post::where('title', 'like', "%$request->searchbox%")->get();
             return view("blog",['posts' => $posts,'tags'=>$tags]);
         }
