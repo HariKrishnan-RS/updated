@@ -1,7 +1,7 @@
 <x-head-section />
 <div class="container">
         <h1>Add Post</h1>
-        <form method="POST" action="{{ route('draft.post',['id'=>$post->id]) }}"  enctype="multipart/form-data">
+        <form method="POST" action="{{ route('draft.update',['id'=>$post->id]) }}"  enctype="multipart/form-data">
           {{--  --}}
             @csrf
 

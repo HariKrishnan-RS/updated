@@ -38,11 +38,11 @@ class DraftController extends Controller
             }
             $draft = Draft::where('post_id',$id);
             $draft->delete();
-            return redirect()->route('blog.page');
+            return redirect()->route('blog.index');
         }
         else
         {
-            return redirect()->route('blog.page');
+            return redirect()->route('blog.index');
         }
     }
 }

@@ -23,15 +23,10 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if ( Auth::attempt($credentials) )
         {
-            return redirect()->route('blog.page')->with('login_message', 'Login successful!');
+            return redirect()->route('blog.index')->with('login_message', 'Login successful!');
         }
 
         return redirect()->back()->with('login_message', 'Login failed! Please try again.');
     }
-
-
-
-
-
 
 }

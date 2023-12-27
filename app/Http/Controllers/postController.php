@@ -22,6 +22,7 @@ class postController extends Controller
         $posts = Post::all(); // Retrieve all posts
         return response()->json($posts);
     }
+
     public function show(Request $request, $id = null )
     {
 
@@ -30,7 +31,12 @@ class postController extends Controller
             $tags = Tag::all();
             return view("create",['tags'=>$tags]);
         }
-        else //read post
+        else if( $request->has('edit')  )
+        {
+            $post = Post::find($id);
+            return view("edit",['post'=>$post]);
+        }
+        else                                                    //read post
         {
             $post = Post::find($id);
             $join = Join::where('post_id', $id)->first();
@@ -60,15 +66,17 @@ class postController extends Controller
             $post->save();
             $userEmail = "harikrishnan.radhakrishnan@qburst.com";
             Mail::to($userEmail)->send(new conformNotification());
-            return redirect()->route('pending.page')->with('approve', 'success fully approved');
+            return redirect()->route('pending.show')->with('approve', 'success fully approved');
         }
         return redirect()->back();
     }
+
+
     public function delete(  $id )
     {
         $post = Post::find($id);
         $post->delete();
-        return redirect()->route('blog.page')->with('delete','successfully deleted');
+        return redirect()->route('blog.index')->with('delete','successfully deleted');
     }
 
 
@@ -105,7 +113,7 @@ class postController extends Controller
                         $tagjoin->save();
                     }
                     $userEmail = "harikrishnan.radhakrishnan@qburst.com";
-//                    Mail::to($userEmail)->send(new NewPostNotification());
+                    Mail::to($userEmail)->send(new NewPostNotification());
                 }
 
                 if( $request->has('asDraft'))
@@ -118,30 +126,32 @@ class postController extends Controller
                 }
 
                 auth()->user()->posts()->attach($post); //update joins table
-                return redirect()->route('blog.page')->with('posted', 'Post created successfully');
+                return redirect()->route('blog.index')->with('posted', 'Post created successfully');
 
           }
     }
-public function editPost(Request $request,$id)
-{
+    public function edit(Request $request,$id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'small_description' => 'required|string|max:500',
+            'full_description' => 'required|string',
+        ]);
 
+        if ($request->has('edit'))
+        {
+            $post = Post::find($id);
+            $post->title = $request->title;
+            $post->small_description = $request->small_description;
+            $post->full_description = $request->full_description;
+            $post->save();
+            return redirect()->route('blog.index')->with('edited', 'Post Edited successfully');
+        }
+        else
+        {
+            return redirect()->route('blog.index')->with('edited', 'Editing Cancled');
+        }
 
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'small_description' => 'required|string|max:500',
-        'full_description' => 'required|string',
-    ]);
-
-    if ($request->has('edit')) {
-        $post = Post::find($id);
-        $post->title = $request->title;
-        $post->small_description = $request->small_description;
-        $post->full_description = $request->full_description;
-        $post->save();
-        return redirect()->route('blog.page')->with('edited', 'Post Edited successfully');
-    } else {
-        return redirect()->route('blog.page')->with('edited', 'Editing Cancled');
     }
 
-}
 }

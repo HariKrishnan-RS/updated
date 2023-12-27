@@ -4,10 +4,10 @@
 <body>
 <div class="container">
         <h1>Edit Post</h1>
-        <form method="POST" action="{{ route('edit.post',['id'=>$post->id]) }}"  enctype="multipart/form-data">
+        <form method="POST" action="{{ route('post.edit',['id'=>$post->id]) }}"  enctype="multipart/form-data">
           {{--  --}}
             @csrf
-
+            @method('PATCH')
             <!-- Title -->
             <div class="form-group">
                 <label for="title">Title:</label>

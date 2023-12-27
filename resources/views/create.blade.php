@@ -12,7 +12,7 @@
 <body>
  <div class="container">
         <h1>Add Post</h1>
-        <form method="POST" action="{{ route('store.post') }}"  enctype="multipart/form-data">
+        <form method="POST" action="{{ route('post.create') }}"  enctype="multipart/form-data">
           {{--  --}}
             @csrf
             @method('PUT')

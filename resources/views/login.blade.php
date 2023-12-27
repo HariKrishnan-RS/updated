@@ -16,7 +16,7 @@
                 <div class="card-header">Login</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login.page') }}">
+                    <form method="POST" action="{{ route('login.show') }}">
                         @csrf
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">Email Address</label>
@@ -63,7 +63,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login now
                                 </button>
-                                <a href = "{{route('register.page')}}" class="btn btn-primary">
+                                <a href = "{{route('register.show')}}" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </a>
                                 @if (Route::has('password.request'))

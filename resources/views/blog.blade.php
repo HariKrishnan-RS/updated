@@ -73,7 +73,7 @@
     </div>
 @endif
 {{-- tag search --}}
-<form method="get" action="{{route('blog.page')}}"  enctype="multipart/form-data">
+<form method="get" action="{{route('blog.index')}}"  enctype="multipart/form-data">
   <div class="d-flex justify-content-between p-3 flex-wrap " >
           @foreach($tags as $tag)
           <div class="d-flex align-items-center justify-content-center flex-column p-1">
@@ -101,7 +101,7 @@
             <p class="card-text">{{ $post->small_description }}</p>
             <!-- If you want to display the full description in the card: -->
             <!-- <p class="card-text">{{ $post->full_description }}</p> -->
-            <a href="{{ route('read.page', ['id' => $post->id]) }}" class="btn btn-primary">Read</a>
+            <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-primary">Read</a>
         </div>
     </div>
 @endif
@@ -114,11 +114,11 @@
 @auth
 <div class="d-flex align-items-center justify-content-center flex-column">
 @if(auth()->user()->role === 'user')
-<form method="GET" action="{{ route('add.page') }}" >
+<form method="GET" action="{{ route('addpost.show') }}" >
     <input type="hidden" name="create" value="1">
     <button type="submit"  class="btn btn-success text-decoration-none" >Add Post</button>
 </form>
-<a href="{{route('draft.page',['id'=> auth()->user()->id ])}}" class="btn-alert">Draft</a>
+<a href="{{route('draft.show',['id'=> auth()->user()->id ])}}" class="btn-alert">Draft</a>
 @endif
 </div>
 
@@ -127,14 +127,14 @@
 @auth
 <div class="d-flex align-items-center justify-content-center flex-column">
     @if(auth()->user()->role === 'admin')
-   <a href="{{route('pending.page')}}" class="btn btn-warning text-decoration-none" >Pending posts</a>
+   <a href="{{route('pending.show')}}" class="btn btn-warning text-decoration-none" >Pending posts</a>
     @endif
 </div>
 @endauth
 
 @auth
 @if(auth())
-<form method="POST" action="{{ route('blog.page') }}">
+<form method="POST" action="{{ route('blog.index') }}">
     @csrf
     <button class="btn-secondary" type="submit">Logout</button>
 </form>

@@ -15,30 +15,10 @@ use Illuminate\Support\Facades\Mail;
 class PageController extends Controller
 {
 
-
-
-    public function editPage($id){
-       $post = Post::find($id);
-        return view("edit",['post'=>$post]);
-
-    }
-
-
-
-
-
-
-//    public function addPost(Request $request){
-//       if($request->has('addPost'))
-//
-//        $tags = Tag::all();
-//        return view("add",['tags'=>$tags]);
-//    }
-
-    public function pendingPage(){
+    public function show(){
                $posts = Post::all();
                return view("pending",['posts' => $posts]);
     }
 
 }
-//service folder
+

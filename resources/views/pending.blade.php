@@ -51,7 +51,7 @@
             <!-- If you want to display the full description in the card: -->
             <!-- <p class="card-text">{{ $post->full_description }}</p> -->
             
-            <a href="{{ route('read.page', ['id' => $post->id]) }}" class="btn btn-primary" >Read</a>
+            <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-primary" >Read</a>
         </div>
     </div>
 @endif

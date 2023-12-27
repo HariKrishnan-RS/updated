@@ -178,7 +178,7 @@ background-color: forestgreen;
             @endforeach
         </div>
         <div>
-                <form class="form" method="POST" action="{{ route('read.page',['id'=>$post->id]) }}">
+                <form class="form" method="POST" action="{{ route('post.update',['id'=>$post->id]) }}">
                 @csrf
 
                     <label class="comment-label" for="comment">Your Comment:</label>
@@ -188,7 +188,7 @@ background-color: forestgreen;
         </div>
     <div>
         <!-- Your Blade file content -->
-        <form class="form" method="POST" action="{{ route('read.page',['id'=>$post->id]) }}">
+        <form class="form" method="POST" action="{{ route('post.show',['id'=>$post->id]) }}">
             @csrf
 {{--            <input type="hidden" name="post_id" value="{{ $post->id }}">--}}
             <fieldset class="rating">
@@ -241,13 +241,13 @@ background-color: forestgreen;
         </div>
     @auth
         @if(auth()->user()->role === 'admin' && !$post->approved)
-        <form method="POST" action="{{ route('read.page',['id'=>$post->id]) }}">
+        <form method="POST" action="{{ route('post.update',['id'=>$post->id]) }}">
             @csrf
             <button class="btn btn-success mt-1" name="approve" type="submit">Approve</button>
         </form>
         @endif
         @if(auth()->user()->role === 'admin' && $post->approved)
-        <form method="POST" action="{{ route('read.page',['id'=>$post->id]) }}">
+        <form method="POST" action="{{ route('post.delete',['id'=>$post->id]) }}">
             @csrf
             @method('DELETE')
             <button class="btn btn-danger mt-1"  type="submit" name="delete">Delete</button>
@@ -255,9 +255,9 @@ background-color: forestgreen;
         @endif
 
         @if(auth()->user()->role === 'editor')
-            <form method="GET" action="{{ route('edit.page',['id'=>$post->id]) }}">
+            <form method="GET" action="{{ route('editPost.show',['id'=>$post->id]) }}">
             @csrf
-            <button class="btn btn-warning mt-1"  type="submit">Edit</button>
+            <button class="btn btn-warning mt-1" name="edit" type="submit">Edit</button>
             </form>
         @endif
     @endauth
