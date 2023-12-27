@@ -1,0 +1,134 @@
+/* Basic styles for layout */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.post {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.post-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.post-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+}
+
+.author-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.author-name {
+    font-weight: bold;
+}
+
+.full-description {
+    line-height: 1.6;
+}
+.scrollable-div {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x:hidden;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.row {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+
+.row h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color:rgb(255, 123, 0);
+}
+
+.row p {
+    margin: 5px 0 0;
+    font-size: 15px;
+}
+.scrollable-div::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable-div::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+.scrollable-div::-webkit-scrollbar-thumb {
+    background-color: rgb(218, 218, 218);
+    border-radius: 3px;
+}
+.date {
+    font-size: 12px !important;
+    color:grey;
+    text-align: end;
+}
+progress[value] {
+    appearance: none;
+    -webkit-appearance: progress-bar;
+    width: 200px;
+    height: 20px;
+    color: red;
+}
+progress[value]::-webkit-progress-value {
+    background-color: green ; /* Change this color for each bar */
+    border-radius: 5px;
+
+}
+.rating {
+    display: flex;
+    flex-direction: row-reverse; /* Reverse the direction of elements */
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    font-size: 25px;
+    color: #ddd;
+    order: 2; /* Set the default order */
+}
+
+.rating input:checked ~ label,
+.rating input:checked ~ label ~ label {
+    color: #f39c12;
+}
+.rate-btn{
+    background-color: forestgreen;
+    color:white;
+    border: none;
+    padding:0px 5px;
+    font-size: 14px;
+    border-radius: 5px;
+
+}
+.rate-div{
+    display:flex;
+    justify-content: end;
+    padding-right: 10px;
+
+}

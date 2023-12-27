@@ -22,13 +22,13 @@ class DraftController extends Controller
         return redirect()->back()->with('draftMsg','No draft available');
     }
 
-    public function update( Request $request, $id ) {
-
+    public function update( Request $request, $id )
+    {
         if( $request->has("save") )
         {
             $post = Post::find($id);
             $post->draft = false;
-            $post->save();
+            $post->update();
             foreach($request->tags as $tag_id)
             {
                 $tagjoin = new Tagjoin;
