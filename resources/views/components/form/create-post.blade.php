@@ -33,7 +33,7 @@
 
     <!-- Submit and Save as Draft Buttons -->
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="submit" class="btn btn-secondary" name="asDraft">Save as Draft</button>
+        <button type="submit" class="btn btn-primary" id="submitbtn">Submit</button>
+        <button type="submit" class="btn btn-secondary" name="asDraft" id="draftbtn">Save as Draft</button>
     </div>
 </form>

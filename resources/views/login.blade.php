@@ -14,3 +14,6 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script src="{{ asset('loginScript.js') }}"></script>
+@endsection

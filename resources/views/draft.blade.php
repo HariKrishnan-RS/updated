@@ -6,3 +6,6 @@
         <x-form.draft-edit :tags="$tags" :post="$post"/>
     </div>
 @endsection
+@section('script')
+    <script src="{{ asset('draftScript.js') }}"></script>
+@endsection

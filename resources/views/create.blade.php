@@ -6,4 +6,6 @@
         <x-form.create-post :tags="$tags"/>
     </div>
 @endsection
-
+@section('script')
+    <script src="{{ asset('createPostScript.js') }}"></script>
+@endsection

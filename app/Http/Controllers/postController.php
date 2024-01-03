@@ -91,7 +91,7 @@ class postController extends Controller
               'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
           ]);
 
-          if ( $request->hasFile('image') )
+          if ( $request->hasFile('image') && $request->file('image')->isValid())
           {
                 $imageName = 'post-img1.' . $request->image->extension();
                 $request->image->storeAs('images', $imageName, 'public');

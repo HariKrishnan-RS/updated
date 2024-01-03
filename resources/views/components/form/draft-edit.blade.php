@@ -34,7 +34,7 @@
     <x-common.tag-checkbox :tags="$tags" />
 
     <div class="form-group">
-        <button type="submit" name="save" class="btn btn-primary">Submit</button>
-        <button type="submit" class="btn btn-secondary" name="asDraft">back</button>
+        <button type="submit" name="save" class="btn btn-primary" id="submitbtn">Submit</button>
+        <button type="submit" class="btn btn-secondary" name="asDraft" id="backbtn">back</button>
     </div>
 </form>

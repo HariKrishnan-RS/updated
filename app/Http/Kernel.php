@@ -69,7 +69,7 @@ class Kernel extends HttpKernel
     ];
 
     protected $routeMiddleware = [
- 
+        'jwt.exception' => \App\Http\Middleware\JWTExceptionHandler::class,
     'auth.redirect' => \App\Http\Middleware\RedirectIfNotAuthenticated::class,
 ];
 }

@@ -16,7 +16,9 @@
 
         </div>
     </div>
-
+<div id="error" style = "font-size:13px; color:red;justify-content: end;display:none" >
+    !Oops wrong credentials..
+</div>
     <div class="row mb-3">
         <div class="col-md-6 offset-md-4">
             <div class="form-check">
@@ -31,10 +33,10 @@
 
     <div class="row mb-0">
         <div class="col-md-8 offset-md-4">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" id="loginbtn">
                 Login now
             </button>
-            <a href = "{{route('register.show')}}" class="btn btn-primary">
+            <a href = "{{route('register.show')}}" class="btn btn-primary " >
                 Register
             </a>
         </div>
