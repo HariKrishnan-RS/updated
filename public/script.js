@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        fetch('http://127.0.0.1:8080/api/post', {
+        fetch('http://127.0.0.1:8080/api/post?add=#', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -219,4 +219,108 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
+
+    document.getElementById('logoutbtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        gotologin();
+
+    });
+
+    const postElements = document.querySelectorAll('.posts');
+
+    postElements.forEach(postElement => {
+        postElement.addEventListener('click', function(e) {
+            e.preventDefault();
+            const postId = this.getAttribute('id');
+
+            const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
+                const [key, value] = cookie.trim().split('=');
+                cookiesObject[key] = value;
+                return cookiesObject;
+            }, {});
+
+            const token = cookies.token;
+            fetch(`http://127.0.0.1:8080/api/post/${postId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error('Failed to fetch post data');
+                    }
+                })
+                .then(data => {
+                    window.close();
+                    const newTab = window.open();
+                    newTab.document.open();
+                    newTab.document.write(data);
+                    newTab.document.close();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+        });
+    });
+
+
+
+
+    document.getElementById('pendingbtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
+            const [key, value] = cookie.trim().split('=');
+            cookiesObject[key] = value;
+            return cookiesObject;
+        }, {});
+
+        const token = cookies.token;
+
+        if (!token) {
+            console.error('Token not found in cookies');
+            return;
+        }
+        
+        fetch(`http://127.0.0.1:8080/api/post?pending`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Failed to update post');
+                }
+            })
+            .then(data => {
+                window.close();
+                const newTab = window.open();
+                newTab.document.open();
+                newTab.document.write(data);
+                newTab.document.close();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+
+    });
+
+
+
+
+
 });
+
+function gotologin(){
+    window.location.href = 'http://localhost:8080/login';
+}

@@ -7,7 +7,7 @@
     <!-- Title -->
     <div class="form-group">
         <label for="title">Title:</label>
-        <input type="text" class="form-control" id="title" name="title" required value='{{$post->title}}'>
+        <input type="text" class="form-control" id="title"  name="title" required value='{{$post->title}}'>
     </div>
 
     <!-- Small Description -->
@@ -34,7 +34,8 @@
 
     <!-- Submit and Save as Draft Buttons -->
     <div class="form-group mt-3">
-        <button type="submit" class="btn btn-primary" name="edit">Edit</button>
-        <button type="submit" class="btn btn-secondary" name="back">Back</button>
+        <button type="submit" class="btn btn-primary" name="edit" id="editbtn" >Edit</button>
+        <button  class="btn btn-secondary" name="back" id="backbtn">Back</button>
     </div>
+    <div class="carrier" id="{{$post->id}}"></div>
 </form>

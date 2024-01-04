@@ -10,7 +10,7 @@
     <x-common.session-alert key="approve" type="success" />
 
     <x-common.not-aproved-post-grid :posts="$posts"/>
-
+    <button type="submit" class="btn btn-secondary m-5" name="back" id="backbtn">back</button>
 @endsection
 
 @section('style')
@@ -18,3 +18,6 @@
 @endsection
 
 
+@section('script')
+    <script src="{{ asset('pendingScript.js') }}"></script>
+@endsection

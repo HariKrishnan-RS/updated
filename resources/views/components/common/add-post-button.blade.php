@@ -9,5 +9,8 @@
         </form>
         <a href="{{ route('draft.show', ['id' => $id]) }}" class="btn-alert" id="draftPostbtn">Draft</a>
     </div>
+@else
+    <div id="addPostbtn"></div>
+    <div id="draftPostbtn"></div>
 @endif
 @endif

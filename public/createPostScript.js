@@ -107,6 +107,13 @@ document.getElementById('submitbtn').addEventListener('click', function (e) {
             console.error('Error:', error);
         });
 });
+
+document.getElementById('backbtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    gotoBlog();
+});
+
+
 function getCheckedTagIDs() {
     const checkedTagIDs = [];
     const checkboxes = document.querySelectorAll('input[name="tags[]"]:checked');
@@ -155,3 +162,5 @@ function gotoBlog() {
             console.error('Error:', error);
         });
 }
+
+

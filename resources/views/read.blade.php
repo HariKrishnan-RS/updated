@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="post">
-        <h1 class="post-title">{{$post->title}}</h1>
+        <h1 class="post-title h1" id={{$post->id}}>{{$post->title}} </h1>
         <img src="{{ asset('images/post-img.jpg') }}" alt="Post Image" class="post-image">
 
         <x-common.session-alert key="addedComment" type="success" />
@@ -78,29 +78,41 @@
                 @if(auth()->user()->role === 'admin' && !$post->approved)
                     <form method="POST" action="{{ route('post.update',['id'=>$post->id]) }}">
                         @csrf
-                        <button class="btn btn-success mt-1" name="approve" type="submit">Approve</button>
+                        <button class="btn btn-success mt-1" name="approve" type="submit" id="approvebtn">Approve</button>
                     </form>
+                @else
+                    <div id="approvebtn"></div>
                 @endif
+
                 @if(auth()->user()->role === 'admin' && $post->approved)
                     <form method="POST" action="{{ route('post.delete',['id'=>$post->id]) }}">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger mt-1"  type="submit" name="delete">Delete</button>
+                        <button class="btn btn-danger mt-1"  type="submit" name="delete" id="deletebtn">Delete</button>
                     </form>
+                @else
+                        <div id="deletebtn"></div>
                 @endif
 
                 @if(auth()->user()->role === 'editor')
                     <form method="GET" action="{{ route('editPost.show',['id'=>$post->id]) }}">
                         @csrf
-                        <button class="btn btn-warning mt-1" name="edit" type="submit">Edit</button>
+                        <button class="btn btn-warning mt-1" name="edit" type="submit" id="editbtn">Edit</button>
                     </form>
+                    @else
+                    <div id="editbtn"></div>
                 @endif
             @endauth
 
         </div>
     </div>
+    <button type="submit" class="btn btn-secondary" name="back" id="backbtn">back</button>
 @endsection
 
 @section('style')
     <link href="{{ asset('readPage.css') }}" rel="stylesheet">
+@endsection
+
+@section('script')
+    <script src="{{ asset('readScript.js') }}"></script>
 @endsection

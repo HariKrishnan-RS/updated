@@ -4,6 +4,6 @@
 
         <label class="comment-label" for="comment">Your Comment:</label>
         <input type="text" class="form-control" id="comment" name="comment" required >
-        <button class="btn btn-primary mt-1"  type="submit" name='commentbtn' >Add Comment</button>
+        <button class="btn btn-primary mt-1"  type="submit" name='commentbtn' id="commentbtn">Add Comment</button>
     </form>
 </div>

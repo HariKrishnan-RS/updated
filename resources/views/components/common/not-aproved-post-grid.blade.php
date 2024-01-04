@@ -6,10 +6,10 @@
             <div class="card mb-5 " style="max-width:300px; width: 100%; height:500px"  >
                 <img src="{{ asset('images/post-img.jpg') }}" class="card-img card-img-top" alt="Placeholder Image">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $post->title }}</h5>
+                    <h5 class="card-title" >{{ $post->title }} </h5>
                     <p class="card-text" >{{ $post->small_description }}</p>
                     <!-- <p class="card-text">$post->full_description</p> -->
-                    <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-primary" >Read</a>
+                    <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-primary read" id="{{$post->id}}">Read</a>
                 </div>
             </div>
         @endif

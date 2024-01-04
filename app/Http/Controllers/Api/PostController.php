@@ -193,8 +193,20 @@ class PostController extends Controller
 
     public function view(Request $request)
     {
+        if($request->has("add"))
+        {
         $tags = Tag::all();
         return view('create',['tags'=>$tags]);
+        }
+        else if($request->has("pending")){
+            $posts = Post::all();
+            return view("pending",['posts' => $posts]);
+        }
+        else{
+            $post = Post::find($request->id);
+            return view("edit",['post'=>$post]);
+        }
+
     }
 
 }

@@ -6,3 +6,6 @@
         <x-form.post-edit :post="$post"/>
     </div>
 @endsection
+@section('script')
+    <script src="{{ asset('editScript.js') }}"></script>
+@endsection
