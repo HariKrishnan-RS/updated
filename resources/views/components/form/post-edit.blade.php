@@ -5,23 +5,23 @@
     @csrf
     @method('PATCH')
     <!-- Title -->
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="title">Title:</label>
-        <input type="text" class="form-control" id="title"  name="title" required value='{{$post->title}}'>
+        <input type="text" class="form-control mt-1" id="title"  name="title" required value='{{$post->title}}'>
     </div>
 
     <!-- Small Description -->
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="small_description">Small Description:</label>
-        <textarea class="form-control" id="small_description" name="small_description" rows="3" required>
+        <textarea class="form-control mt-1" id="small_description" name="small_description" rows="3" required>
                   {{$post->small_description}}
         </textarea>
     </div>
 
     <!-- Full Description -->
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="full_description">Full Description:</label>
-        <textarea class="form-control" id="full_description" name="full_description" rows="5" required>
+        <textarea class="form-control mt-1" id="full_description" name="full_description" rows="5" required>
                   {{$post->full_description}}
         </textarea>
     </div>

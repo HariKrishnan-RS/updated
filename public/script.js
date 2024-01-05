@@ -203,28 +203,42 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             })
             .then(data => {
-                window.close();
-                const newTab = window.open();
-                newTab.document.open();
-                newTab.document.write(data);
-                newTab.document.close();
-
+                if(data){
+                    window.close();
+                    const newTab = window.open();
+                    newTab.document.open();
+                    newTab.document.write(data);
+                    newTab.document.close();
+                }
+                else{
+                    console.log("no Draft");
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
             });
 
-
-
+    });
+    let myModal = new bootstrap.Modal(document.getElementById('logoutModal'), {
+        keyboard: false
     });
 
+    document.getElementById('modelLogoutbtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        gotologin();
+    });
+    document.getElementById('modelCancelbtn').addEventListener('click', function (e) {
+        myModal.hide();
+    });
+    document.getElementById('modelClosebtn').addEventListener('click', function (e) {
+        myModal.hide();
+    });
 
 
     document.getElementById('logoutbtn').addEventListener('click', function (e) {
         e.preventDefault();
-        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        gotologin();
-
+        myModal.show();
     });
 
     const postElements = document.querySelectorAll('.posts');

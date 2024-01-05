@@ -147,7 +147,13 @@ document.getElementById('approvebtn').addEventListener('click', function(e) {
 });
 
 
-document.getElementById('deletebtn').addEventListener('click', function(e) {
+
+
+let myModal = new bootstrap.Modal(document.getElementById('deleteModal'), {
+    keyboard: false
+});
+
+document.getElementById('modelDeletebtn').addEventListener('click', function (e) {
     e.preventDefault();
     const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
         const [key, value] = cookie.trim().split('=');
@@ -192,10 +198,20 @@ document.getElementById('deletebtn').addEventListener('click', function(e) {
         .catch(error => {
             console.error('Error:', error);
         });
+
+});
+document.getElementById('modelCancelbtn').addEventListener('click', function (e) {
+    myModal.hide();
+});
+document.getElementById('modelClosebtn').addEventListener('click', function (e) {
+    myModal.hide();
 });
 
+document.getElementById('deletebtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    myModal.show();
 
-
+});
 
 
 
@@ -270,3 +286,5 @@ function gotoread(postId){
             console.error('Error:', error);
         });
 }
+
+

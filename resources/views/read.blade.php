@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <x-common.model-delete />
+
     <div class="post">
         <h1 class="post-title h1" id={{$post->id}}>{{$post->title}} </h1>
         <img src="{{ asset('images/post-img.jpg') }}" alt="Post Image" class="post-image">
@@ -12,7 +14,7 @@
             <span class="author-name">{{$user_name}}</span>
         </div>
 
-        <p class="full-description">
+        <p class="full-description" style="text-align: justify; text-indent: 20px">
             {{$post->full_description}}
         </p>
 

@@ -3,6 +3,8 @@
 @section('content')
   <x-common.blog-navbar />
 
+  <x-common.model-logout />
+
   <x-common.blog-head-image />
 @if(isset($role))
   <x-common.welcome-message :role="$role" :name="$name" :id="$id"/>

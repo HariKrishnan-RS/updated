@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const emailbox = document.getElementById('email');
+    const passwordbox = document.getElementById('password');
+    const errorElement = document.getElementById('error');
+    function hideError() {
+        errorElement.style.display = 'none';
+    }
+    emailbox.addEventListener('keypress', hideError);
+    passwordbox.addEventListener('keypress', hideError);
+
     let loginBtn = document.getElementById("loginbtn")
     loginBtn.addEventListener("click", function(e) {
         e.preventDefault();
