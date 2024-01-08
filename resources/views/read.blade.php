@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <x-common.blog-navbar />
     <x-common.model-delete />
+    <x-common.model-comment />
+    <x-common.model-approve />
 
-    <div class="post">
+    <div class="post" >
         <h1 class="post-title h1" id={{$post->id}}>{{$post->title}} </h1>
         <img src="{{ asset('images/post-img.jpg') }}" alt="Post Image" class="post-image">
 

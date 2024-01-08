@@ -49,7 +49,7 @@ document.getElementById('editbtn').addEventListener('click', function (e) {
 });
 
 
-document.getElementById('commentbtn').addEventListener('click', function(e) {
+document.getElementById('Modelcommentbtn').addEventListener('click', function(e) {
     e.preventDefault();
     const commentValue = document.getElementById('comment').value;
     const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
@@ -98,8 +98,30 @@ document.getElementById('commentbtn').addEventListener('click', function(e) {
         });
 });
 
+let myApproveModal = new bootstrap.Modal(document.getElementById('approveModal'), {
+    keyboard: false
+});
 
-document.getElementById('approvebtn').addEventListener('click', function(e) {
+document.getElementById('approveModelCancelbtn').addEventListener('click', function (e) {
+    myApproveModal.hide();
+});
+document.getElementById('approveModelClosebtn').addEventListener('click', function (e) {
+    myApproveModal.hide();
+});
+
+document.getElementById('approvebtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    myApproveModal.show();
+
+});
+
+
+
+
+
+
+
+document.getElementById('ModelApprovebtn').addEventListener('click', function(e) {
     e.preventDefault();
     const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
         const [key, value] = cookie.trim().split('=');
@@ -288,3 +310,20 @@ function gotoread(postId){
 }
 
 
+
+let myCommentModal = new bootstrap.Modal(document.getElementById('commentModal'), {
+    keyboard: false
+});
+
+document.getElementById('commentModelCancelbtn').addEventListener('click', function (e) {
+    myCommentModal.hide();
+});
+document.getElementById('commentModelClosebtn').addEventListener('click', function (e) {
+    myCommentModal.hide();
+});
+
+document.getElementById('commentbtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    myCommentModal.show();
+
+});
