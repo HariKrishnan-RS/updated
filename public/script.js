@@ -97,11 +97,9 @@ document.addEventListener("DOMContentLoaded", function() {
     })
         .then(response => {
             if (response.ok) {
-
                 return response.text();
 
             } else {
-
                 throw new Error('Failed to fetch blogs');
             }
         })
@@ -110,8 +108,10 @@ document.addEventListener("DOMContentLoaded", function() {
             addEvents();
         })
         .catch(error => {
+            document.title = '401 Error Page';
+            document.body.innerHTML = '<h1>401 - Unauthorized</h1><p>The requested page was not found.</p>';
             console.error('Error:', error);
-        });
+                 });
 
 });
 
@@ -233,8 +233,6 @@ function addEvents(){
     document.getElementById('pendingbtn').addEventListener('click', function (e) {
         e.preventDefault();
         window.location.href= "http://127.0.0.1:8080/pending";
-
-
 
     });
 

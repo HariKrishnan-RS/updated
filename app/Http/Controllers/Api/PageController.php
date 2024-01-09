@@ -14,6 +14,11 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Response;
 class PageController extends Controller
 {
+
+    /**
+     * @param Request $request
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Foundation\Application
+     */
     public function index(Request $request)
     {
         $tags = Tag::all();
@@ -75,6 +80,12 @@ class PageController extends Controller
 
 
     }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+
     public function login(Request $request)
     {
         return "login";

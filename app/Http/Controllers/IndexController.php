@@ -15,6 +15,6 @@ class IndexController extends Controller
     //
     public function index( request $request ): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
- return view("api.z-blog");
+        return view("api.z-blog");
     }
 }

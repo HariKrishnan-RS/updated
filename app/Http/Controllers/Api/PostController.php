@@ -26,6 +26,11 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PostController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     public function show(Request $request,$id){
 
             try {
@@ -44,6 +49,10 @@ class PostController extends Controller
             return view("read",['id'=>$id,'post' => $post,'user_name'=>$user->name,'comments'=>$comments]);
     }
 
+    /**
+     * @param Request $request
+     * @return string]
+     */
     public function store(Request $request)
     {
 
@@ -61,8 +70,6 @@ class PostController extends Controller
             $post->small_description = $request->small_description;
             $post->full_description = $request->full_description;
             $post->draft = $request->has('asDraft');
-
-//            $request->image->move(public_path('uploads'), "imagename.jpg");
 
             $post->save();
 
@@ -86,6 +93,12 @@ class PostController extends Controller
 
         return "Posting Failed";
     }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
 
     public function edit(Request $request,$id)
     {
@@ -129,6 +142,11 @@ class PostController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request,$id)
     {
         try {
@@ -171,6 +189,12 @@ class PostController extends Controller
 
         }
     }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(Request $request,$id)
     {
         $token = JWTAuth::getToken();
@@ -195,6 +219,10 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     public function view(Request $request)
     {
         if($request->has("add"))

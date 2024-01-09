@@ -20,6 +20,10 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class DraftController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|void
+     */
     public function show(Request $request)
     {
         try {
@@ -38,6 +42,10 @@ class DraftController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -86,6 +94,10 @@ class DraftController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|void
+     */
 
     public function edit(Request $request)
     {

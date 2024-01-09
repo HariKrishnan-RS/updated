@@ -14,6 +14,13 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CommentController extends Controller
 {
+
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request,$id)
     {
         if( $request->has('comment') )
@@ -37,6 +44,12 @@ class CommentController extends Controller
         }
     }
 
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(Request $request,$id)
     {
 

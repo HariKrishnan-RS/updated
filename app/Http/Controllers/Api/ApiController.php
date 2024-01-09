@@ -10,6 +10,10 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ApiController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(Request $request){
 
         $request->validate([
@@ -31,7 +35,10 @@ class ApiController extends Controller
         ]);
     }
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request){
         // data validation
         $request->validate([
@@ -61,6 +68,9 @@ class ApiController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function profile(){
 
         $userdata = auth()->user();
@@ -73,6 +83,10 @@ class ApiController extends Controller
     }
 
     // To generate refresh token value
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function refreshToken(){
 
         $newToken = auth()->refresh();
@@ -84,6 +98,10 @@ class ApiController extends Controller
     }
 
     // User Logout (GET)
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout(){
         auth()->logout();
         return response()->json([
@@ -92,6 +110,10 @@ class ApiController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     public function show(Request $request){
 
             return view("login");
