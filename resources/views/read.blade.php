@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
     <x-common.blog-navbar />
     <x-common.model-delete />
     <x-common.model-comment />
@@ -112,12 +109,3 @@
         </div>
     </div>
     <button type="submit" class="btn btn-secondary" name="back" id="backbtn">back</button>
-@endsection
-
-@section('style')
-    <link href="{{ asset('readPage.css') }}" rel="stylesheet">
-@endsection
-
-@section('script')
-    <script src="{{ asset('readScript.js') }}"></script>
-@endsection

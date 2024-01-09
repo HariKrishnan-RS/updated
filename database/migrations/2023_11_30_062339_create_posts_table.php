@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('small_description');
             $table->text('full_description');
+            $table->text('image')->default("path to image");
             $table->integer('rating')->default(0);
             $table->boolean('approved')->default(false);
             $table->boolean('draft')->default(false);

@@ -46,6 +46,9 @@
 //         console.error("Error fetching posts:", error);
 //     });
 // Function to save selected tag IDs to local storage
+
+
+
 function saveSelectedTags() {
     const checkboxes = document.querySelectorAll('.btn-check');
     const selectedTags = [];
@@ -69,10 +72,57 @@ function loadSelectedTags() {
     }
 }
 
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
+        const [key, value] = cookie.trim().split('=');
+        cookiesObject[key] = value;
+        return cookiesObject;
+    }, {});
+
+    const token = cookies.token;
+    if (!token) {
+        console.error('Token not found in cookies');
+
+        document.title = '404 Error Page';
+        document.body.innerHTML = '<h1>404 - Page Not Found</h1><p>The requested page was not found.</p>';
+        return;
+    }
+    fetch('http://127.0.0.1:8080/api/blogs', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+
+                return response.text();
+
+            } else {
+
+                throw new Error('Failed to fetch blogs');
+            }
+        })
+        .then(data => {
+            document.body.innerHTML=data;
+            addEvents();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+});
+
+function gotologin(){
+    window.location.href = 'http://127.0.0.1:8080/login';
+}
 window.addEventListener('load', function() {
     loadSelectedTags();
 });
-document.addEventListener("DOMContentLoaded", function() {
+function addEvents(){
+
 
     document.getElementById('searchButton').addEventListener('click', function (e) {
         saveSelectedTags();
@@ -109,17 +159,17 @@ document.addEventListener("DOMContentLoaded", function() {
         })
             .then(response => {
                 if (response.ok) {
+
                     return response.text();
                 } else {
                     throw new Error('Failed to fetch blogs');
                 }
             })
             .then(data => {
-                window.close();
-                const newTab = window.open();
-                newTab.document.open();
-                newTab.document.write(data);
-                newTab.document.close();
+                const tempElement = document.createElement('div');
+                tempElement.innerHTML = data;
+                const cardPackContent = tempElement.querySelector('#card-pack').innerHTML;
+                document.querySelector('#card-pack').innerHTML=cardPackContent;
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -131,94 +181,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById('addPostbtn').addEventListener('click', function (e) {
         e.preventDefault();
-        const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
-            const [key, value] = cookie.trim().split('=');
-            cookiesObject[key] = value;
-            return cookiesObject;
-        }, {});
-
-        const token = cookies.token;
-
-        if (!token) {
-            console.error('Token not found in cookies');
-            return;
-        }
-
-        fetch('http://127.0.0.1:8080/api/post?add=#', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    throw new Error('Failed to fetch post data');
-                }
-            })
-            .then(data => {
-                window.close();
-                const newTab = window.open();
-                newTab.document.open();
-                newTab.document.write(data);
-                newTab.document.close();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-
+        window.location.href='http://127.0.0.1:8080/blogs/post';
     });
 
 
 
     document.getElementById('draftPostbtn').addEventListener('click', function (e) {
         e.preventDefault();
-        const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
-            const [key, value] = cookie.trim().split('=');
-            cookiesObject[key] = value;
-            return cookiesObject;
-        }, {});
+        window.location.href="http://127.0.0.1:8080/draft";
 
-        const token = cookies.token;
-
-        if (!token) {
-            console.error('Token not found in cookies');
-            return;
-        }
-
-        fetch('http://127.0.0.1:8080/api/draft', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    throw new Error('Failed to fetch draft');
-                }
-            })
-            .then(data => {
-                if(data){
-                    window.close();
-                    const newTab = window.open();
-                    newTab.document.open();
-                    newTab.document.write(data);
-                    newTab.document.close();
-                }
-                else{
-                    console.log("no Draft");
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
 
     });
+
+
     let myModal = new bootstrap.Modal(document.getElementById('logoutModal'), {
         keyboard: false
     });
@@ -247,38 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
         postElement.addEventListener('click', function(e) {
             e.preventDefault();
             const postId = this.getAttribute('id');
-
-            const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
-                const [key, value] = cookie.trim().split('=');
-                cookiesObject[key] = value;
-                return cookiesObject;
-            }, {});
-
-            const token = cookies.token;
-            fetch(`http://127.0.0.1:8080/api/post/${postId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        return response.text();
-                    } else {
-                        throw new Error('Failed to fetch post data');
-                    }
-                })
-                .then(data => {
-                    window.close();
-                    const newTab = window.open();
-                    newTab.document.open();
-                    newTab.document.write(data);
-                    newTab.document.close();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            window.location.href= `http://127.0.0.1:8080/blog/read?id=${postId}`;
 
         });
     });
@@ -288,53 +232,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById('pendingbtn').addEventListener('click', function (e) {
         e.preventDefault();
-        const cookies = document.cookie.split(';').reduce((cookiesObject, cookie) => {
-            const [key, value] = cookie.trim().split('=');
-            cookiesObject[key] = value;
-            return cookiesObject;
-        }, {});
+        window.location.href= "http://127.0.0.1:8080/pending";
 
-        const token = cookies.token;
-
-        if (!token) {
-            console.error('Token not found in cookies');
-            return;
-        }
-        
-        fetch(`http://127.0.0.1:8080/api/post?pending`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    throw new Error('Failed to update post');
-                }
-            })
-            .then(data => {
-                window.close();
-                const newTab = window.open();
-                newTab.document.open();
-                newTab.document.write(data);
-                newTab.document.close();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
 
 
     });
 
 
-
-
-
-});
-
-function gotologin(){
-    window.location.href = 'http://localhost:8080/login';
 }

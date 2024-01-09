@@ -25,27 +25,17 @@ class postController extends Controller
 
     public function show(Request $request, $id = null )
     {
-
-        if( $request->has('create') )
-        {
-            $tags = Tag::all();
-            return view("create",['tags'=>$tags]);
-        }
-        else if( $request->has('edit')  )
-        {
-            $post = Post::find($id);
-            return view("edit",['post'=>$post]);
-        }
-        else                                                    //read post
-        {
-            $post = Post::find($id);
-            $join = Join::where('post_id', $id)->first();
-            $user = User::find($join->user_id);
-            $comments = Comment::all()->where('post_id', $post->id);
-            return view("read",['id'=>$id,'post' => $post,'user_name'=>$user->name,'comments'=>$comments]);
-        }
-
+       return view("api.create");
     }
+    public function read(Request $request, $id = null )
+    {
+        return view("api.read");
+    }
+    public function editPage(Request $request, $id = null )
+    {
+        return view("api.edit");
+    }
+
 
     public function update( request $request, $id )
     {

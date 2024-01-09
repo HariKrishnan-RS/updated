@@ -56,16 +56,19 @@ class PostController extends Controller
 
         if ( $request->has('image'))
         {
-
             $post = new Post();
             $post->title = $request->title;
             $post->small_description = $request->small_description;
             $post->full_description = $request->full_description;
             $post->draft = $request->has('asDraft');
+
+//            $request->image->move(public_path('uploads'), "imagename.jpg");
+
             $post->save();
 
             if( !$request->has('asDraft'))
             {
+
                 foreach($request->tags as $id)
                 {
                     $tagjoin = new Tagjoin;
@@ -80,6 +83,7 @@ class PostController extends Controller
             auth()->user()->posts()->attach($post); //update joins table
             return "successfully posted";
         }
+
         return "Posting Failed";
     }
 

@@ -24,7 +24,7 @@
     <!-- Image Upload -->
     <div class="form-group mt-3 mb-3">
         <label for="image">Upload Image:</label>
-        <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+        <input type="file" class="form-control" id="image" name="image"  required>
     </div>
     {{-- select tags --}}
     <label>Select Tags:</label><br>

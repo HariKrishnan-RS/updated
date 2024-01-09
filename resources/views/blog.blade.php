@@ -1,6 +1,4 @@
-@extends('layouts.app')
 
-@section('content')
   <x-common.blog-navbar />
 
   <x-common.model-logout />
@@ -39,18 +37,3 @@
     <x-form.logout-button />
   @endif
   @endif
-
-
-
-
-
-
-@endsection
-
-@section('style')
-  <link href="{{ asset('style.css') }}" rel="stylesheet">
-@endsection
-
-@section('script')
-  <script src="{{ asset('script.js') }}"></script>
-@endsection

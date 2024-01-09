@@ -16,8 +16,8 @@ class PageController extends Controller
 {
 
     public function show(){
-               $posts = Post::all();
-               return view("pending",['posts' => $posts]);
+
+               return view("api.pending");
     }
 
 }

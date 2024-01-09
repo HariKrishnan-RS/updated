@@ -10,16 +10,9 @@ use Illuminate\Http\Request;
 
 class DraftController extends Controller
 {
-    public function show( $id ): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+    public function show(  ): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-        if( $draft = Draft::where('user_id', $id)->first() )
-        {
-            $postId = $draft->post_id;
-            $post = Post::find($postId);
-            $tags = Tag::all();
-            return view('draft',['post'=>$post,'tags'=>$tags]);
-        }
-        return redirect()->back()->with('draftMsg','No draft available');
+        return view("api.draft");
     }
 
     public function update( Request $request, $id )

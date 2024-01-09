@@ -15,7 +15,16 @@ class DatabaseSeeder extends Seeder
          \App\Models\User::factory(10)->create();
         \App\Models\Post::factory(10)->create();
         \App\Models\Join::factory(10)->create();
-        \App\Models\Tag::factory(10)->create();
+        \App\Models\Tag::factory(1)->create(['tagName'=>'Hotel']);
+        \App\Models\Tag::factory(1)->create(['tagName'=>'Travel']);
+        \App\Models\Tag::factory(1)->create(['tagName'=>'Movie']);
+        \App\Models\Tag::factory(1)->create(['tagName'=>'Books']);
+        \App\Models\Tag::factory(1)->create(['tagName'=>'Music']);
+        \App\Models\Tag::factory(1)->create(['tagName'=>'Anime']);
+        \App\Models\Tag::factory(1)->create(['tagName'=>'World']);
+        \App\Models\Tag::factory(1)->create(['tagName'=>'Feast']);
+        \App\Models\Tag::factory(1)->create(['tagName'=>'Vehicle']);
+        \App\Models\Tag::factory(1)->create(['tagName'=>'Animal']);
         \App\Models\Rating::factory(10)->create();
 
         // \App\Models\User::factory()->create([
