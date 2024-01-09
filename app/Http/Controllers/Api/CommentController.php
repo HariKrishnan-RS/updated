@@ -40,11 +40,6 @@ class CommentController extends Controller
     public function show(Request $request,$id)
     {
 
-//        try {
-//                $token = JWTAuth::getToken();
-//         } catch (JWTException $exception) {
-//                throw new UnauthorizedHttpException('jwt-auth', 'Token is missing or invalid');
-//         }
         $token = JWTAuth::getToken();
         if($request->has('json') && JWTAuth::check($token))
         {

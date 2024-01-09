@@ -10,10 +10,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ApiController extends Controller
 {
-    // User Register (POST, formdata)
     public function register(Request $request){
 
-        // data validation
         $request->validate([
             "name" => "required",
             "email" => "required|email|unique:users",
@@ -26,14 +24,14 @@ class ApiController extends Controller
             "password" => Hash::make($request->password)
         ]);
 
-        // Response
+
         return response()->json([
             "status" => "ok",
             "message" => "User registered successfully"
         ]);
     }
 
-    // User Login (POST, formdata)
+
     public function login(Request $request){
         // data validation
         $request->validate([
@@ -41,11 +39,6 @@ class ApiController extends Controller
             "password" => "required"
         ]);
 
-        // JWTAuth
-//        $token = JWTAuth::attempt([
-//            "email" => $request->email,
-//            "password" => $request->password
-//        ]);
         $user = User::where('email', $request->email)->first();
         $role = $user->role;
         $token = JWTAuth::claims(['role' => $role])->attempt([
@@ -68,7 +61,6 @@ class ApiController extends Controller
         ]);
     }
 
-    // User Profile (GET)
     public function profile(){
 
         $userdata = auth()->user();
@@ -104,8 +96,6 @@ class ApiController extends Controller
 
             return view("login");
 
-
     }
-
 
 }
