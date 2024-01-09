@@ -14,12 +14,12 @@ class JWTExceptionHandler
             $token = JWTAuth::getToken();
             if ($token && !JWTAuth::check($token))
             {
-                throw new TokenInvalidException('Token is invalid');
+                throw new TokenInvalidException('Token is invalid :from JWTExceptionHandler');
             }
         }
         catch (TokenInvalidException $e)
         {
-            return response()->json(['error' => 'Invalid token'], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['error' => 'Invalid token :from JWTExceptionHandler'], Response::HTTP_UNAUTHORIZED);
         }
 
     return $next($request);

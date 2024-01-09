@@ -34,10 +34,10 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($e instanceof JWTException) {
-            return response()->json(['error' => 'A valid token is required'], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['error' => 'A valid token is Required'], Response::HTTP_UNAUTHORIZED);
         }
         if ($e instanceof RouteNotFoundException) {
-            return response()->json(['error' => 'token invalid or missing'], Response::HTTP_NOT_FOUND);
+            return response()->json(['error' => 'token Invalid or Missing'], Response::HTTP_NOT_FOUND);
         }
 
         return parent::render($request, $e);

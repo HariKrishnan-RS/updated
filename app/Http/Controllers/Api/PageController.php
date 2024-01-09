@@ -49,7 +49,7 @@ class PageController extends Controller
                 }
                 return $postsWithUsers;
             }
-            return $posts;
+//            return $posts;
             return view("blog", ['posts' => $posts, 'tags' => $tags, 'role' => $user->role, 'id' => $user->id, 'name' => $user->name]);
         } else {
 

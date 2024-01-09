@@ -29,7 +29,7 @@ Route::get("login", [ApiController::class, "show"]);
 Route::get("blogs", [PageController::class, "index"])->middleware('jwt.exception');
 
 Route::group([
-    "middleware" => ["auth:api","jwt.exception"]
+    "middleware" => ["auth:api"]
 ], function(){
     Route::get("post/{id}", [PostController::class, "show"]);
     Route::post("post", [PostController::class, "store"]);

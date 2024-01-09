@@ -1,7 +1,6 @@
 
 Et ab neque molestias dolore accusamus sit fuga et tempora eaque dolor similique doloribus nihil exercitationem maxime quisquam dolorem veniam qui vel quia doloremque quis doloremque.
 
-
 Nam enim dolor dignissimos accusamus velit corporis quia sit maiores odit magni nihil ut vel recusandae quia dicta velit qui vitae est quos reiciendis aut et rerum in similique ut quia unde dignissimos atque dolorum et eligendi perferendis ex quo amet nesciunt maiores maiores delectus vero similique doloribus omnis voluptatem minus voluptatem at in sequi fuga est nesciunt fugiat perferendis accusantium aut sit dolorem velit eum autem dolor quas nostrum illo tempora cupiditate error mollitia quia dolor aliquid in nisi eum odit molestiae dicta quidem aut assumenda voluptatum necessitatibus voluptas hic qui perferendis alias ipsam quod enim dolores atque tempora impedit exercitationem eos sed voluptas ratione iure aliquid expedita id repellat et deleniti aut consequatur nisi autem distinctio sapiente consequuntur pariatur voluptatem voluptatibus placeat recusandae error ex quaerat optio quam deserunt maiores aut ut tenetur porro corporis facere cumque doloribus sequi dolores qui voluptas molestiae et eos dolore omnis ipsa corrupti sed deleniti assumenda quo ut aut laboriosam hic non vitae qui et eum error optio sit odio placeat aliquam ab voluptas exercitationem ullam incidunt dolorem sapiente eos rem perferendis amet adipisci ipsum aut et deserunt et sed sed expedita aut omnis suscipit ipsam cupiditate ut earum aut omnis quis laudantium voluptas
 
 
@@ -9,3 +8,131 @@ user = user123
 db = MyDb
 pass = 123456789
 posr  = 5433
+
+
+Blog Apis
+
+GET index    http://127.0.0.1:8080/api/blogs   {
+                                               "token":"" ,
+                                               "json":"true"
+                                               }
+
+GET Tag search    http://127.0.0.1:8080/api/blogs   {
+                                                        "token": "",
+                                                        "tags":[],
+                                                        "json":"true"
+                                                    }
+
+GET Text search   http://127.0.0.1:8080/api/blogs   {
+                                                        "token": "",
+                                                        "searchbox":"B",
+                                                        "json":"true"
+                                                    }
+
+Comment
+
+POST add    http://127.0.0.1:8080/api/post/12/comment   {
+                                                             "token": "",
+                                                              "comment":"this is a comment"
+                                                        }
+
+GET get    http://127.0.0.1:8080/api/post/15/comment     { "token": "",
+                                                          "json":"true"
+                                                         }
+
+Draft
+
+POST add    http://127.0.0.1:8080/api/draft    {
+                                                  "token": "",
+                                                   "title": "sssssssnsew dsraft",
+                                                   "small_description": "required",
+                                                   "full_description":  "required",
+                                                   "draft":"true"
+                                               }
+
+GET show     http://127.0.0.1:8080/api/draft   {
+                                               "token": ""
+                                               }
+
+PUT submit   http://127.0.0.1:8080/api/draft   {
+                                               "token": "",
+                                                   "small_description": "required",
+                                                   "full_description":  "required",
+                                                   "image":"postimage.png",
+                                                   "tags":[1,2,3]
+                                               }
+
+post
+
+GET read    http://127.0.0.1:8080/api/post/4    {
+                                                   "token": "",
+                                                    "json":"true"
+                                                }
+
+POST add   http://127.0.0.1:8080/api/post      {
+                                                   "token": "",
+                                                   "title": "hello there",
+                                                   "small_description": "required",
+                                                   "full_description":  "required",
+                                                   "image":"postimage.png",
+                                                   "tags":[1,2,3]
+                                               }
+
+PUT edit    http://127.0.0.1:8080/api/post/12   {
+                                                 "token": "",
+                                                    "title": "ashsssello thwswwere",
+                                                    "small_description": "rwqwqwequired",
+                                                    "full_description":  "required",
+                                                    "edit":"true"
+                                                }
+
+DELETE delete    http://127.0.0.1:8080/api/post/14   {
+                                                       "token": ""
+                                                     }
+
+PATCH approve    http://127.0.0.1:8080/api/post/10    {
+                                                       "token": "",
+                                                        "approve":"true"
+                                                      }
+
+GET get add post page  http://127.0.0.1:8080/api/post   {    "token": "",
+                                                             "add":"true"
+                                                        }
+
+GET get edit post page    http://127.0.0.1:8080/api/post  {    "token": "",
+                                                               "id":"2"
+                                                          }
+
+GET get pending post page   http://127.0.0.1:8080/api/post  {    "token": "",
+                                                                 "pending":"true"
+                                                            }
+
+User APIs
+
+POST login   http://127.0.0.1:8080/api/login   {
+                                                   "email":"user@gmail.com",
+                                                   "password":"123123123"
+                                               }
+
+GET logout   http://127.0.0.1:8080/api/logout   {
+                                                    "token": ""
+                                                }
+
+GET profile  http://127.0.0.1:8080/api/profile  {
+                                                  "token": ""
+                                                }
+
+GET login   http://127.0.0.1:8080/api/login
+
+POST register  http://127.0.0.1:8080/api/register  {
+                                                       "name" : "users2",
+                                                       "email" : "userss2@gmail.com",
+                                                       "password" : "123123123"
+                                                   }
+
+GET register    http://127.0.0.1:8080/api/register  {
+                                                        "for":"register"
+                                                    }
+
+GET refresh   http://127.0.0.1:8080/api/refresh    {"token": ""
+                                                   }

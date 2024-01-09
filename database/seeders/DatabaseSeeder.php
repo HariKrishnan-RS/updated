@@ -12,8 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         \App\Models\User::factory(10)->create();
-        \App\Models\Post::factory(10)->create();
+
+         \App\Models\User::factory(7)->create();
+        \App\Models\User::factory(1)->create(['name'=>'user' ,'email'=>'user@gmail.com', 'role'=>'user']);
+        \App\Models\User::factory(1)->create(['name'=>'admin' ,'email'=>'admin@gmail.com', 'role'=>'admin']);
+        \App\Models\User::factory(1)->create(['name'=>'editor' ,'email'=>'editor@gmail.com', 'role'=>'editor']);
+        \App\Models\Post::factory(8)->create(['approved'=>true]);
+        \App\Models\Post::factory(2)->create();
         \App\Models\Join::factory(10)->create();
         \App\Models\Tag::factory(1)->create(['tagName'=>'Hotel']);
         \App\Models\Tag::factory(1)->create(['tagName'=>'Travel']);
